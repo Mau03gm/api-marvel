@@ -3,6 +3,7 @@ package com.MarvelDemo.demo.Controller;
 import com.MarvelDemo.demo.Config.Application;
 import com.MarvelDemo.demo.Config.JwtUtil;
 import com.MarvelDemo.demo.DTO.LoginDTO;
+import com.MarvelDemo.demo.Service.AdminService;
 import com.MarvelDemo.demo.Service.authService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -20,6 +21,8 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private authService authService;
+    @Autowired
+    private AdminService adminService;
     @Autowired
     private JwtUtil jwUtil;
 
@@ -44,7 +47,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<LoginDTO> registerUser(@RequestBody LoginDTO userDTO) throws Exception{
-        authService.registerUser(userDTO);
+        adminService.registerUser(userDTO);
         UsernamePasswordAuthenticationToken login = new UsernamePasswordAuthenticationToken(userDTO.getEmail(), userDTO.getPassword());
         Authentication authentication = this.authenticationManager.authenticate(login);
         String token = this.jwUtil.createToken(userDTO.getEmail());

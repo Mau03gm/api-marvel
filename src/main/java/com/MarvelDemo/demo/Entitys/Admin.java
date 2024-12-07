@@ -7,13 +7,12 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchConnectionDetails;
 
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Admin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
