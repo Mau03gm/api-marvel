@@ -1,5 +1,6 @@
 package com.MarvelDemo.demo.Service;
 
+import com.MarvelDemo.demo.DTO.LoginDTO;
 import com.MarvelDemo.demo.Entitys.User;
 import com.MarvelDemo.demo.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,12 @@ public class authService implements UserDetailsService {
                 .roles("USER")
                 .build();
 
+    }
+
+    public User registerUser(LoginDTO user) {
+        User registerUser = new User();
+        registerUser.setEmail(user.getEmail());
+        registerUser.setPassword(user.getPassword());
+        return userRepository.save(registerUser);
     }
 }
