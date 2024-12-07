@@ -24,9 +24,22 @@ logger.info(response.getBody());
 return response.getBody();
 }
 
-public void getCharacterByName() {
+  public String getCharacterByName(String name) {
+    RestTemplate restTemplate = new RestTemplate();
+    String url = apiURL + "?name=" + name + "&ts=1&apikey=" + publicKey + "&hash=" + hash;
+    ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+    Logger logger = Logger.getLogger(characterService.class.getName());
+    logger.info(response.getBody());
+    return response.getBody();
 }
 
-public void getCharacterNameStartWith() {
+
+public String getCharacterNameStartWith() {
+    RestTemplate restTemplate = new RestTemplate();
+    String url = apiURL + "?nameStartsWith=Spider&ts=1&apikey=" + publicKey + "&hash=" + hash;
+    ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+    Logger logger = Logger.getLogger(characterService.class.getName());
+    logger.info(response.getBody());
+    return response.getBody();
 }
 }
