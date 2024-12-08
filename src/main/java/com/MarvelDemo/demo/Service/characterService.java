@@ -14,15 +14,17 @@ public class characterService {
     String publicKey="f3fa3ffddc4ec6463042dec1d2a8c0a4";
     String apiURL="https://gateway.marvel.com:443/v1/public/characters";
 
-public String getAllCharacter() {
-// Make a request to the Marvel API
-RestTemplate restTemplate = new RestTemplate();
-String url = apiURL + "?ts=1&apikey=" + publicKey + "&hash=" + hash;
-ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-Logger logger = Logger.getLogger(characterService.class.getName());
-logger.info(response.getBody());
-return response.getBody();
-}
+    public ResponseEntity<String> getAllCharacter(Integer page) {
+        page= page*10;
+        RestTemplate restTemplate = new RestTemplate();
+        String url = apiURL + "?ts=1&limit="+page+"&apikey=" + publicKey + "&hash=" + hash;
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+
+        Logger logger = Logger.getLogger(characterService.class.getName());
+        logger.info(response.getBody());
+
+        return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
+    }
 
   public String getCharacterByName(String name) {
     RestTemplate restTemplate = new RestTemplate();
@@ -34,9 +36,9 @@ return response.getBody();
 }
 
 
-public String getCharacterNameStartWith() {
+public String getCharacterNameStartWith( String name) {
     RestTemplate restTemplate = new RestTemplate();
-    String url = apiURL + "?nameStartsWith=Spider&ts=1&apikey=" + publicKey + "&hash=" + hash;
+    String url = apiURL + "?nameStartsWith="+name+"&ts=1&apikey=" + publicKey + "&hash=" + hash;
     ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
     Logger logger = Logger.getLogger(characterService.class.getName());
     logger.info(response.getBody());

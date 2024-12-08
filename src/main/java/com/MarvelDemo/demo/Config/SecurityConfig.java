@@ -30,9 +30,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .csrf(csrf -> csrf.disable())
                     .cors(cors -> cors.configurationSource(corsConfigurationSource.corsConfigurationSource()))
                     .authorizeHttpRequests(requests -> requests
-                            .requestMatchers(HttpMethod.POST, "/marvel/api/v1/auth/register").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/marvel/api/v1/auth/**").permitAll()
                             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // Permitir recursos estáticos
-                            .anyRequest().permitAll()
+                            .anyRequest().authenticated()
                     )
                     .addFilterBefore(this.jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
